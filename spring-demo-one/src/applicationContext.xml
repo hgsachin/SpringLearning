@@ -7,8 +7,23 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
     
+    <context:property-placeholder location="classpath:sport.properties"/>
+    
+    <bean id="myFortune"
+    	class="com.training.springdemo.helpers.HappyFortuneService">
+    </bean>
+    
     <bean id="myCoach"
     	class="com.training.springdemo.HockeyCoach">
+    	<constructor-arg ref="myFortune"/>
+    </bean>
+    <bean id="myChessCoach"
+    	class="com.training.springdemo.ChessCoach">
+    	<property name="fortuneService" ref="myFortune"></property>
+    	<!-- <property name="email" value="some@sh1t.com" />
+    	<property name="style" value="defensive" /> -->
+    	<property name="email" value="${email}" />
+    	<property name="style" value="${style}" />
     </bean>
         
 </beans>
